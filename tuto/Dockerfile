@@ -12,6 +12,11 @@ ENV http_proxy ${http_proxy}
 ENV https_proxy ${https_proxy}
 ENV no_proxy ${no_proxy}
 
+# Command to set package cache
+RUN apt-get update && apt-get install -y --no-install-recommends \
+ 	sl && \
+    rm -rf /var/lib/apt/lists/*
+
 ############################################# User definition
 
 # Setup User to match Host User, and give superuser permissions
@@ -25,7 +30,6 @@ WORKDIR /home/ws
 
 # Copy the current directory content to /home/ws
 ADD . /home/ws 
-
 
 # Install any needed packages specified in requirements.txt
 RUN pip install -r requirements.txt
