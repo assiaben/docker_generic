@@ -64,6 +64,17 @@ Remove all containers
 
     docker rm $(docker ps -a -q)
 
+Save change made in a container to a new image
+
+    $ docker run -it <IMAGE NAME> bash
+    # echo test_commit > test_commit.txt # Do some modifs
+    # exit
+    $ docker ps -a # Get <CONTAINER ID>
+    $ docker commit <CONTAINER ID> <NEW IMAGE NAME>:tag_name(optional)
+    $ docker images # Check that the new image exists
+    $ docker run -it <NEW IMAGE NAME> bash
+    $ cat test_commit.txt
+
 ## Error handling
 
 Can't delete image because child images dependencies
