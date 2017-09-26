@@ -1,11 +1,14 @@
 Collection of useful dokcer image to start with. 
 
-## How to use
+## How to create a docker image
 Define 
 - Dockerfile: image definition 
 - requirements.txt: list python packages you want to install
 - Makefile: to build the image 
 - other: every data you want to go into the working directory of the machine
+
+Then run 
+    make root # builds and run the image as ROOT user
 
 IMPORTANT: Always add the proxy environment variables in you Dockerfile. It is necessary to build the image.
 
