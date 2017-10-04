@@ -66,14 +66,24 @@ Remove all containers
 
 Save change made in a container to a new image
 
-    $ docker run -it <IMAGE NAME> bash
+    docker run -it <IMAGE NAME> bash
     # echo test_commit > test_commit.txt # Do some modifs
     # exit
-    $ docker ps -a # Get <CONTAINER ID>
-    $ docker commit <CONTAINER ID> <NEW IMAGE NAME>:tag_name(optional)
-    $ docker images # Check that the new image exists
-    $ docker run -it <NEW IMAGE NAME> bash
-    $ cat test_commit.txt
+    docker ps -a # Get <CONTAINER ID>
+    docker commit <CONTAINER ID> <NEW IMAGE NAME>:tag_name(optional)
+    docker images # Check that the new image exists
+    docker run -it <NEW IMAGE NAME> bash
+    cat test_commit.txt
+
+Save your image on a remote repository
+    
+    # Tag your image 
+    docker tag <IMAGE NAME>:<IMAGE TAG> <DOCKER USERNAME>/<REPO NAME>:<IMAGE TAG>
+    docker push <DOCKER USERNAME>/<REPO NAME>:<IMAGE TAG>
+
+Remove images with the same <IMAGE ID> but with different tags
+
+    docker rmi <REPOSITORY NAME>:<TAG NAME>
 
 ## Error handling
 
