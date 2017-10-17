@@ -29,6 +29,10 @@ Run the app (foreground)
 
     docker run -p <IMAGE NAME>
 
+Run the image built with nvidia docker as root, mount a volume and get access to bash
+
+    nvidia-docker run --volume=<LOCAL HOST PATH>:<DOCKER IMAGE PATH> -it -u root <IMAGE NAME> bash
+
 Run the app (background) 
 
     docker run -d -p <IMAGE NAME>
