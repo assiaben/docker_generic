@@ -1,4 +1,6 @@
-Collection of useful dokcer image to start with. 
+Collection of useful dokcer image to start with. If if you don't find the image
+you want to use, check at the end of the file for ready-to-run images or create
+your own Docker tools.
 
 ## How to create a docker image
 Define 
@@ -99,5 +101,10 @@ Can't delete image because child images dependencies
     sha256:1d1f94c972fc8d75a34135f9ff551617680c508f7ad17efda09048b4e805g1w3
     # The first 12 characters are the child <IMAGE ID>: 1d1f94c972fc
 
+## Ready-to-run images
 
+[Tensorflow](https://hub.docker.com/r/tensorflow/tensorflow/)
+    
+    # For tensorflow 1.2.0 gpu support
+    docker pull tensorflow/tensorflow:1.2.0-gpu
 
