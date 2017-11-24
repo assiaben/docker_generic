@@ -77,6 +77,49 @@ At last, part of code which computes DenseCRF is able to work only with PPM imag
     cd exper
     caffe train --solver=voc12/config/deep_largeFOV/solver_train.prototxt 
 
+### Set crf
+The densecrf/Makefile uploaded by the docker with the deeplab-ver2 repository lacks a link. 
+So the best strategy for now is to compile it by hand once you run the docker
+
+    # Add the missing link to libhfd5 after -lmatio
+    # To build prog_refine_pascal_v4
+    $(CC) refine_pascal_v4/dense_inference.cpp -o prog_refine_pascal_v4 $(CFLAGS) -L. -lDenseCRF -lmatio -lhdf5 -I./util/
+
+    # If you image dataset is seperated into several subdirectories
+    # Modify the code to read the image name from the feature maps
+    # For Antoine Richard (stage classif ortho image) structure, add this code in the refine_pascal_v4 main loop after for (size_t i = 0; i < feat_file_names.size(); ++i) {
+    std::string fn;
+    std::string subdir;
+    std::cout << "img_filenames[i]" << img_file_names[i] <<  std::endl;
+    std::cout << img_file_names[i].size() << std::endl;
+    if(img_file_names[i].size()<4){
+      fn = std::string(inp.ImgDir) + "/0/" + img_file_names[i] + ".ppm";
+      std::cout << "[0] " << std::string(inp.ImgDir) << "/0/" << img_file_names[i] <<  std::endl;
+      std::cout << "[0] img_filename: " << fn << std::endl;
+    }
+    else if(img_file_names[i].size()==4){
+      subdir = img_file_names[i].substr(0,1) + "/" ;
+      //int j=1;
+      //const char* str_tmp = &img_file_names[i][j];
+      //while(::strcmp(str_tmp,"0")==0){
+      //  j++;
+      //}
+      //img_filename = img_file_names[i].substr(j, std::string::npos);
+      fn = std::string(inp.ImgDir) + "/" + subdir + img_file_names[i] + ".ppm";
+      std::cout << "subdir: " << subdir << std::endl;
+      std::cout << "img_filename: " << fn << std::endl;
+    }
+    else if(img_file_names[i].size()==5){
+      subdir = img_file_names[i].substr(0,2) + "/" ;
+      fn = std::string(inp.ImgDir) + "/" + subdir + img_file_names[i] + ".ppm";
+      std::cout << "subdir: " << subdir << std::endl;
+      std::cout << "img_filename: " << fn << std::endl;
+    }
+
+    ## If you have a segfault, check that your feature maps have the correct pattern
+    ## In the main file, it is the variable strip_pattern.
+    By default, it is 'blob_0' but you may have 'blob_1' or another
+
 ### Post process your feature maps using crf (... it is long)
     # This process your features maps with crf and save the segmentation result
     # into a binary file
@@ -101,3 +144,12 @@ At last, part of code which computes DenseCRF is able to work only with PPM imag
 Finetuning: 
     
     caffe train -solver solver.prototxt -weights ../fcn8s-heavy-pascal.caffemodel
+
+## How to train (Draft)
+
+In exper, create your experiment folder with the script: new_exper.sh
+
+Copy the the list of images in list.
+Copy your network model (i.e. all the prototxt in config)
+
+
