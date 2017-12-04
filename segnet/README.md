@@ -13,5 +13,8 @@ Build
 --volume=external_path:local_path mounts external_path in local_path in the image
     
     # Example 
-    nvidia-docker run --volume=/usr/users/ims/benbihi_ass/ws/abenbihi/ws:/home/ws -it -u root <IMAGE NAME> bash
+    nvidia-docker run --volume=/usr/users/ims/benbihi_ass/ws/abenbihi/ws:/home/ws -it -u root segnet bash
 
+## Training for Antoine
+
+caffe train --gpu=0 --solver=segnet_solver_all3_test.prototxt --weights=../VGG_ILSVRC_16_layers.caffemodel
