@@ -58,7 +58,7 @@ At last, part of code which computes DenseCRF is able to work only with PPM imag
     # DO NOT USE ANY OTHER CODE TO DO THE CONVERSION !!!! 
     # the crf script accepts only the ppm images generated with this code.
     # Don't ask why.
-	# Modify the path variables and run the following script in matlab:
+	  # Modify the path variables and run the following script in matlab:
     deeplab/code/densecrf/my_script/SaveJpgToPPM.m
 
 ### Generate features map to feed crf: this creates fcn8 in deeplab/exper/voc12/features/deep_largeFOV/val/fc8
@@ -77,7 +77,7 @@ At last, part of code which computes DenseCRF is able to work only with PPM imag
     cd exper
     caffe train --solver=voc12/config/deep_largeFOV/solver_train.prototxt 
 
-### Set crf
+### Set crf 
 The densecrf/Makefile uploaded by the docker with the deeplab-ver2 repository lacks a link. 
 So the best strategy for now is to compile it by hand once you run the docker
 
