@@ -1,4 +1,3 @@
-Collection of useful dokcer image to start with. If if you don't find the image
 you want to use, check at the end of the file for ready-to-run images or create
 your own Docker tools.
 
