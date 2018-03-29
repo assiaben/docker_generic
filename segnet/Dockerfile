@@ -49,7 +49,12 @@ WORKDIR $CAFFE_ROOT
 
 ENV CLONE_TAG=1.0
 
+ADD ./solver.cpp /opt
+ADD ./caffe.cpp /opt
+
 RUN git clone https://github.com/TimoSaemann/caffe-segnet-cudnn5.git . && \
+    mv -f /opt/caffe.cpp /opt/caffe/caffe-segnet-cudnn5/tools/ && \
+    mv -f /opt/solver.cpp /opt/caffe/caffe-segnet-cudnn5/src/caffe/ && \
     pip install --upgrade pip && \
     cd python && for req in $(cat requirements.txt) pydot; do pip install $req; done && cd .. && \
     git clone https://github.com/NVIDIA/nccl.git && cd nccl && make -j install && cd .. && rm -rf nccl && \

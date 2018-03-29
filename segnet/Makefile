@@ -2,8 +2,8 @@
 .DEFAULT_GOAL := help
 
 ## The following must be adapted depending on where you put your data.
-EXTERNAL_PATH_TO_WS=/usr/users/ims/benbihi_ass/ws/abenbihi/ws # path in your server
-LOCAL_PATH_TO_WS=/home/ws # Path in your image
+EXTERNAL_PATH_TO_WS=/opt/BenbihiAssia/deeplab/# path in your server
+LOCAL_PATH_TO_WS=/home/ws/# Path in your image
 
 IMAGE_NAME=segnet
 
