@@ -36,6 +36,6 @@ RUN rm -rf __pycache__ && \
 #&& \
 #    pip install -e .[test]
 
-
+ENV CUDA_VISIBLE_DEVICES 0
 ENV PYTHONPATH $CODE_DIR:$CODE_DIR/slim:$PYTHONPATH
 CMD /bin/bash
