@@ -1,4 +1,5 @@
 #FROM ubuntu:16.04
+#FROM nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04
 FROM nvidia/cuda:8.0-cudnn6-devel-ubuntu16.04
 
 ############################################# Proxy definition
@@ -36,6 +37,6 @@ RUN rm -rf __pycache__ && \
 #&& \
 #    pip install -e .[test]
 
-
+ENV CUDA_VISIBLE_DEVICES 0
 ENV PYTHONPATH /root/code/baselines:$PYTHONPATH
 CMD /bin/bash
