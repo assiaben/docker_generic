@@ -1,4 +1,4 @@
-tensorflow==1.5
+tensorflow-gpu==1.5
 gym
 scipy
 tqdm
