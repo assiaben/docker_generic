@@ -1,0 +1,12 @@
+tensorflow==1.5
+gym
+scipy
+tqdm
+joblib
+dill
+progressbar2
+mpi4py
+cloudpickle
+click
+opencv-python
+

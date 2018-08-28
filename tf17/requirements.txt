@@ -1,0 +1,11 @@
+tensorflow==1.7
+scipy
+tqdm
+joblib
+dill
+progressbar2
+mpi4py
+cloudpickle
+click
+opencv-python
+jupyter
