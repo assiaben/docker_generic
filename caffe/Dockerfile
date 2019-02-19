@@ -1,4 +1,3 @@
-
 ############################################# Ubuntu 14.04, Cuda 8
 
 FROM nvidia/cuda:8.0-cudnn5-devel-ubuntu14.04

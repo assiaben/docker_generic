@@ -14,7 +14,18 @@ ARG GROUP_ID=0
 RUN groupadd -g ${GROUP_ID} code_executor && useradd -m code_executor -u ${USER_ID} -g ${GROUP_ID}
 ###########################
 
-RUN apt-get -y update && apt-get -y install git wget python-dev python3-dev libopenmpi-dev python-pip zlib1g-dev cmake python-opencv vim
+RUN apt-get -y update && apt-get -y install \
+  git \
+  wget \
+  python-dev \
+  python3-dev \
+  libopenmpi-dev \
+  python-pip \
+  zlib1g-dev \
+  cmake \
+  python-opencv \
+  python-scipy \
+  vim
 ENV CODE_DIR /root/code
 ENV VENV /root/venv
 

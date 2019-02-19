@@ -1,5 +1,6 @@
 tensorflow-gpu==1.4
 gym
+gym[atari]
 scipy
 tqdm
 joblib
