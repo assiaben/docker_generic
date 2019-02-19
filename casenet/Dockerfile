@@ -1,8 +1,9 @@
-############################################# Ubuntu 14.04, Cuda 7.5, Cudnn4
+############################################# Ubuntu 16.04, Cuda 8, Cudnn6
 ## WARNING: Stay with cudnn4 because deeplab does not 
 ## support any higher version
 
-FROM nvidia/cuda:8.0-cudnn5-devel-ubuntu14.04
+FROM nvidia/cuda:8.0-cudnn6-devel-ubuntu16.04
+#FROM nvidia/cuda:8.0-cudnn5-devel-ubuntu14.04
 
 LABEL MAINTAINER "Assia Benbihi <assia.benbihi@gmail.com>"
 
@@ -25,7 +26,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         git \
         wget \
         libatlas-base-dev \
-        libboost1.55-all-dev \
+        libboost1.58-all-dev \
         libgflags-dev \
         libgoogle-glog-dev \
         libhdf5-serial-dev \
@@ -37,40 +38,32 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         protobuf-compiler \
         python-dev \
         python-numpy \
+        python-opencv \
         python-pip \
-        python-scipy && \
+        python-scipy \
+        vim && \
     rm -rf /var/lib/apt/lists/*
     
-WORKDIR /opt
-
-# MATIO
-RUN wget http://jaist.dl.sourceforge.net/project/matio/matio/1.5.2/matio-1.5.2.tar.gz && \
-    tar -xvzf matio-1.5.2.tar.gz && \
-    rm matio-1.5.2.tar.gz
-    
-WORKDIR /opt/matio-1.5.2
-
-RUN ./configure && make -j8 && make install -j8
-
-ENV CAFFE_ROOT=/opt
+ENV CAFFE_ROOT=/opt/caffe
 WORKDIR $CAFFE_ROOT
-
-ENV INCLUDE_DIRS=/opt/matio-1.5.2/src/:$INCLUDE_DIRS
-ENV LIBRARY_DIRS=/opt/matio-1.5.2/src/:$LIBRARY_DIRS
 
 # FIXME: clone a specific git tag and use ARG instead of ENV once DockerHub supports this.
 ENV CLONE_TAG=master
 
-ADD deeplab_gpu3 /opt
+ADD caffe /opt/caffe
+WORKDIR $CAFFE_ROOT
 
-WORKDIR /opt/code
-
+RUN echo $CAFFE_ROOT
 RUN pwd
+RUN ls
 
-RUN for req in $(cat python/requirements.txt) pydot; do pip install $req; done && \
-    cp Makefile.config.example Makefile.config && \
-    make all -j8 && \
-    make pycaffe -j8
+#RUN  for req in $(cat python/requirements.txt) pydot; do pip install $req; done
+RUN pip install --upgrade pip==9.0.1 && \
+    for req in $(cat python/requirements.txt) pydot; do pip install $req; done && \
+    git clone https://github.com/NVIDIA/nccl.git && cd nccl && make -j install && cd .. && rm -rf nccl && \
+    mkdir build && cd build && \
+    cmake -DUSE_CUDNN=1 -DUSE_NCCL=1 .. && \
+    make -j"$(nproc)" all tools pycaffe
 
 ENV PYCAFFE_ROOT $CAFFE_ROOT/python
 ENV PYTHONPATH $PYCAFFE_ROOT:$PYTHONPATH
@@ -79,6 +72,6 @@ RUN echo "$CAFFE_ROOT/build/lib" >> /etc/ld.so.conf.d/caffe.conf && ldconfig
 
 USER ${USER_ID}
 
-ENV PYTHONPATH='/home/gpu_user/assia/ws/tf/deeplab_gpu3'
+ENV PYTHONPATH='/home/ws/:$PYTHONPATH'
 
-WORKDIR /home/gpu_user/assia/ws/tf/deeplab_gpu3
+WORKDIR /home/ws
