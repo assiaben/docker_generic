@@ -1,4 +1,4 @@
-tensorflow-gpu==1.7
+tensorflow-gpu==1.15.2
 scipy
 scikit-image>=0.9.3
 tqdm
