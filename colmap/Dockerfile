@@ -37,7 +37,20 @@ RUN apt-get update && apt-get install -y \
     qtbase5-dev \
     libqt5opengl5-dev \
     libcgal-dev \
-    libcgal-qt5-dev
+    libcgal-qt5-dev \
+    python3-dev \
+    python3-pip \
+    vim \
+    wget
+
+# Clean up pycache and pyc files
+ENV ROOT_DIR /
+COPY . $ROOT_DIR
+WORKDIR $ROOT_DIR
+RUN rm -rf __pycache__ && \
+    find . -name "*.pyc" -delete && \
+    for req in $(cat requirements.txt) pydot; do pip3 install $req; done 
+
 
 # Build and install ceres solver
 RUN apt-get -y install \
@@ -67,6 +80,7 @@ RUN cd colmap && \
 	cmake .. && \
   make -j8 && \
 	make install
+
 
 # set user workspace
 USER ${USER_ID}
