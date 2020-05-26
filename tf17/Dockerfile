@@ -15,17 +15,19 @@ RUN groupadd -g ${GROUP_ID} code_executor && useradd -m code_executor -u ${USER_
 ###########################
 
 RUN apt-get -y update && apt-get -y install \
+  cmake \
   git \
-  wget \
+  libopencv-dev \
+  libopenmpi-dev \
   python-dev \
   python3-dev \
-  libopenmpi-dev \
   python-pip \
-  zlib1g-dev \
-  cmake \
   python-opencv \
   python-scipy \
-  vim
+  vim \
+  wget \ 
+  zlib1g-dev 
+
 ENV CODE_DIR /root/code
 ENV VENV /root/venv
 

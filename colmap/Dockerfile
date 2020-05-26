@@ -81,7 +81,6 @@ RUN cd colmap && \
   make -j8 && \
 	make install
 
-
 # set user workspace
 USER ${USER_ID}
 ENV PYTHONPATH='/home/ws/'

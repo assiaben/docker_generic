@@ -15,7 +15,7 @@ USER_ID=$(shell id -u)
 GROUP_ID=$(shell id -g)
 
 build:
-	docker build -t $(IMAGE_NAME) -f $(DOCKER_FILE) --build-arg http_proxy=$(http_proxy) --build-arg https_proxy=$(https_proxy) --build-arg no_proxy=$(no_proxy) --build-arg USER_ID=$(USER_ID) --build-arg GROUP_ID=$(GROUP_ID) .
+	docker build --network=host -t $(IMAGE_NAME) -f $(DOCKER_FILE) --build-arg http_proxy=$(http_proxy) --build-arg https_proxy=$(https_proxy) --build-arg no_proxy=$(no_proxy) --build-arg USER_ID=$(USER_ID) --build-arg GROUP_ID=$(GROUP_ID) .
 
 bash: build
 	$(DOCKER) run --volume="$(EXTERNAL_PATH_TO_WS)":""$(LOCAL_PATH_TO_WS) -u "$(USER_ID):$(GROUP_ID)" -it  $(IMAGE_NAME) bash

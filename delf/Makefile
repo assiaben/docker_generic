@@ -1,11 +1,11 @@
-
+# nvidia-docker run  --volume="/opt/HomeLocauxTerm2/BenbihiAssia/ws/tf/wasabi/":"/home/ws/" -it -u root tf_research bash
 .DEFAULT_GOAL := help
 
 # TODO
 IMAGE_NAME=tf_research
 ## The following must be adapted depending on where you put your data.
-EXTERNAL_PATH_TO_WS=/usr/users/ims/benbihi_ass/ws/tools/docker_generic/tf_research/# path in your server
-LOCAL_PATH_TO_WS=/root/code/# Path in your image
+EXTERNAL_PATH_TO_WS=/opt/HomeLocauxTerm2/BenbihiAssia/ws/tf/wasabi/# path in your server
+LOCAL_PATH_TO_WS=/home/ws/# Path in your image
 
 GPU?=0
 DOCKER_FILE=Dockerfile
