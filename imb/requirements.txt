@@ -1,0 +1,10 @@
+Cython==0.29.3
+numpy==1.16.2
+scipy==1.2.1
+scikit-image==0.15.0
+h5py==2.9.0
+leveldb>=0.191
+opencv-python==3.4.2.17
+opencv-contrib-python==3.4.2.17
+pyquaternion
+tqdm==4.28.1
